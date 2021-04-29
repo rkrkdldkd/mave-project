@@ -23,7 +23,7 @@ public class Member {
     String answer;
 
     @ManyToOne
-    @JoinColumn(name="group_id")
+    @JoinColumn(name="groups_id")
     Group group;
 
 
@@ -34,4 +34,12 @@ public class Member {
     public Member(String userId) {
         this.userId = userId;
     }
+
+    //======= 연관관계 매서드 ========//
+
+    public void SetGroup(Group group){
+        this.group = group;
+        group.getMembers().add(this);
+    }
+
 }
