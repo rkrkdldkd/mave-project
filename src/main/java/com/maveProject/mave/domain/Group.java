@@ -1,6 +1,8 @@
 package com.maveProject.mave.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -8,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name="groups")
 public class Group {
@@ -30,6 +33,8 @@ public class Group {
     public Group(String groupName) {
         this.groupName = groupName;
     }
+
+
 
 
     //===== 연관관계 메서드 =====//

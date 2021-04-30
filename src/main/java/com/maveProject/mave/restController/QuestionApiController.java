@@ -1,12 +1,13 @@
 package com.maveProject.mave.restController;
 
 import com.maveProject.mave.domain.QuestionBank;
-import com.maveProject.mave.service.GroupService;
 import com.maveProject.mave.service.QuestionBankService;
+import com.maveProject.mave.service.QuestionService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
@@ -14,12 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class QuestionApiController {
 
     private final QuestionBankService questionBankService;
-    private final GroupService groupService;
+    private final QuestionService questionService;
+
 
     @PostMapping("/api/question/{questionNumber}")
-    public giveQuestionResponse giveQuestion(@PathVariable(value = "questionNumber") Long questionNumber){
+    public giveQuestionResponse giveQuestion(@PathVariable(value = "questionNumber") Long questionNumber,
+                                             @RequestBody giveQuestionRequest request){
         QuestionBank question = questionBankService.findQuestion(questionNumber);
-
+        questionService.createQuestion(request.getGroupName(),question.getContent(),questionNumber);
         return new giveQuestionResponse(question.getContent());
     }
 
@@ -28,6 +31,7 @@ public class QuestionApiController {
 
     @Data
     static class giveQuestionRequest{
+        private String groupName;
 
     }
 

@@ -34,6 +34,7 @@ public class Member {
         this.userId = userId;
     }
 
+
     //======= 연관관계 매서드 ========//
 
     public void SetGroup(Group group){
