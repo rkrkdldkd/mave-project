@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -16,16 +18,20 @@ public class Member {
     @Column(name="member_id")
     private Long id;
 
-    private String name;
 
     private String userId;
 
     private String phoneNumber;
 
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="group_id")
     private Group group;
+
+    @OneToMany(mappedBy = "member",cascade = CascadeType.ALL)
+    private List<Answer> answers = new ArrayList<>();
+
+
 
 
     //======= 생성 메서드 ========//
@@ -43,19 +49,5 @@ public class Member {
     }
 
     //====== 비즈니스 로직 ======//
-    public void registAnswer(Group group, String content){
-        this.group = group;
 
-    }
-
-    @Override
-    public String toString() {
-        return "Member{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", userId='" + userId + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", group=" + group +
-                '}';
-    }
 }

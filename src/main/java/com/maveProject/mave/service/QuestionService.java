@@ -26,5 +26,12 @@ public class QuestionService {
         return questionId;
     }
 
+    public Question findQuestion(String groupName, Long questionNumber){
+        Group group = groupRepository.findByName(groupName).get(0);
+        Question question = questionRepository.findByNumberForGroup(group.getId(),questionNumber).get(0);
+        return question;
+
+    }
+
 
 }

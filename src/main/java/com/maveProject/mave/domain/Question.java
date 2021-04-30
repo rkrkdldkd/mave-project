@@ -18,7 +18,7 @@ public class Question {
     @Column(name="question_id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="group_id")
     private Group group;
 

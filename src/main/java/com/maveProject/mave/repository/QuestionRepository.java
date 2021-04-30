@@ -30,4 +30,12 @@ public class QuestionRepository {
                 .setParameter("questionNumber", questionNumber)
                 .getResultList();
     }
+
+    public List<Question> findByNumberForGroup(Long groupId, Long questionNumber){
+        return em.createQuery("select q from Question q join q.group g " +
+                "where q.questionNumber = :questionNumber and g.id = :groupId",Question.class)
+                .setParameter("questionNumber",questionNumber)
+                .setParameter("groupId",groupId)
+                .getResultList();
+    }
 }
