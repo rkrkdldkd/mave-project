@@ -1,4 +1,4 @@
-package com.maveProject.mave;
+package com.maveProject.mave.restController;
 
 import com.maveProject.mave.domain.Group;
 import com.maveProject.mave.domain.Member;
@@ -10,9 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
-@SpringBootTest
-public class MainTest {
+import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest
+class AnswerApiControllerTest {
+    
     @Autowired
     MemberRepository memberRepository;
 
@@ -21,22 +23,11 @@ public class MainTest {
 
     @Transactional
     @Test
-    public void 메인테스트(){
-        Member member = new Member();
-        em.persist(member);
-        //given
-        Group group = new Group();
-        em.persist(group);
+    public void 답변등록(){
 
-        Group group1 = em.find(Group.class, group.getId());
-
-        member.SetGroup(group1);
-
-        em.find(Member.class,member.getId());
-
-        em.flush();
         //when
 
         //then
     }
+
 }

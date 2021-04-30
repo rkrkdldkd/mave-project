@@ -9,5 +9,5 @@ public class Flower {
     @Id
     @GeneratedValue
     @Column(name="flower_id")
-    Long id;
+    private Long id;
 }
