@@ -16,9 +16,9 @@ public class GroupService {
     private final GroupRepository groupRepository;
 
     @Transactional
-    public Group findGroup(String groupName){
-        List<Group> groups = groupRepository.findByName(groupName);
-        return groups.get(0);
+    public Group findGroup(Long groupId){
+        Group group =  groupRepository.findById(groupId);
+        return group;
     }
 
 

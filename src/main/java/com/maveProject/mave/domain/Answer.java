@@ -21,16 +21,13 @@ public class Answer {
     private Long id;
 
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY ,cascade = CascadeType.ALL)
     @JoinColumn(name="question_id")
     private Question question;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="member_id")
-    private Member member;
-
-
-
+    @ManyToOne(fetch = FetchType.LAZY ,cascade = CascadeType.ALL)
+    @JoinColumn(name="group_id")
+    private Group group;
 
     private String answerContent;
 
@@ -49,9 +46,9 @@ public class Answer {
         question.getAnswers().add(this);
     }
 
-    public void fromMember(Member member){
-        this.member = member;
-        member.getAnswers().add(this);
+    public void registGroup(Group group){
+        this.group = group;
+        group.getAnswers().add(this);
     }
 
 

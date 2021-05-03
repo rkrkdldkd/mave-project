@@ -28,6 +28,10 @@ public class Group {
     @OneToMany(mappedBy = "group",cascade = CascadeType.ALL )
     private List<Question> questions = new ArrayList<>();
 
+    @OneToMany(mappedBy = "group",cascade = CascadeType.ALL )
+    private List<Answer> answers = new ArrayList<>();
+
+
     //===== 생성 메서드 =====//
 
     public Group(String groupName) {

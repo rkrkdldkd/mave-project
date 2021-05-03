@@ -36,8 +36,8 @@ class AnswerServiceTest {
         
         QuestionBank bank = questionBankService.findQuestion(1l);
 
-        Group 그루비룸 = groupService.findGroup("그루비룸");
-        Long question = questionService.createQuestion(그루비룸.getGroupName(), bank.getContent(), bank.getQuestionNumber());
+        Group 그루비룸 = groupService.findGroup(1l);
+        Long question = questionService.createQuestion(그루비룸.getId(), bank.getContent(), bank.getQuestionNumber());
 
         Question question1 = em.find(Question.class, question);
 

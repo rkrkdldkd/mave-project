@@ -8,8 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Service
@@ -25,16 +23,6 @@ public class MemberService {
         return member.getId();
     }
 
-    public Member findMember(Long id){
-        Member member = memberRepository.findById(id);
-        return member;
-    }
-
-    public Member findMember(String name){
-        List<Member> members = memberRepository.findByName(name);
-        return members.get(0);
-    }
-
     @Transactional
     public Long firstJoinGroup(Long userId,String groupName){
         Group group = new Group(groupName);
@@ -46,8 +34,8 @@ public class MemberService {
 
     @Transactional
     public Long JoinGroup(Long userId,Long groupId){
-        Group group = groupRepository.findById(groupId);
         Member member = memberRepository.findById(userId);
+        Group group = groupRepository.findById(groupId);
         member.SetGroup(group);
         return member.getGroup().getId();
     }

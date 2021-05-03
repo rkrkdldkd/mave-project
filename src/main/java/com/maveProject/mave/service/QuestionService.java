@@ -8,8 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Service
@@ -19,15 +17,15 @@ public class QuestionService {
     private final GroupRepository groupRepository;
 
     @Transactional
-    public Long createQuestion(String groupName,String questionContent, Long questionNumber){
-        Group group = groupRepository.findByName(groupName).get(0);
+    public Long createQuestion(Long groupId,String questionContent, Long questionNumber){
+        Group group = groupRepository.findById(groupId);
         Question question = new Question(group, questionContent,questionNumber);
         Long questionId = questionRepository.save(question);
         return questionId;
     }
 
-    public Question findQuestion(String groupName, Long questionNumber){
-        Group group = groupRepository.findByName(groupName).get(0);
+    public Question findQuestion(Long groupId, Long questionNumber){
+        Group group = groupRepository.findById(groupId);
         Question question = questionRepository.findByNumberForGroup(group.getId(),questionNumber).get(0);
         return question;
 

@@ -17,12 +17,14 @@ public class QuestionApiController {
     private final QuestionBankService questionBankService;
     private final QuestionService questionService;
 
-
+    /**
+     * 질문 보내주세요!
+     */
     @PostMapping("/api/question/{questionNumber}")
     public giveQuestionResponse giveQuestion(@PathVariable(value = "questionNumber") Long questionNumber,
                                              @RequestBody giveQuestionRequest request){
         QuestionBank question = questionBankService.findQuestion(questionNumber);
-        questionService.createQuestion(request.getGroupName(),question.getContent(),questionNumber);
+        questionService.createQuestion(request.getGroupId(),question.getContent(),questionNumber);
         return new giveQuestionResponse(question.getContent());
     }
 
@@ -31,7 +33,7 @@ public class QuestionApiController {
 
     @Data
     static class giveQuestionRequest{
-        private String groupName;
+        private Long groupId;
 
     }
 

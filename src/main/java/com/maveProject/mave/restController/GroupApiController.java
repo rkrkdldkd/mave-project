@@ -19,7 +19,7 @@ public class GroupApiController {
 
     @PostMapping("/api/groups")
     public CreateGroupResponse createGroup(@RequestBody CreateGroupRequest request) {
-        Long groupId = memberService.firstJoinGroup(request.getUserId(),request.getGroupName());
+        Long groupId = memberService.firstJoinGroup(request.getUserId(), request.getGroupName());
         return new CreateGroupResponse(groupId);
     }
 
@@ -35,6 +35,12 @@ public class GroupApiController {
     //====== DTO ======//
 
     @Data
+    static class JoinGroupRequest {
+        private Long userId;
+
+    }
+
+    @Data
     static class JoinGroupResponse {
         private Long groupId;
 
@@ -43,10 +49,11 @@ public class GroupApiController {
         }
     }
 
-    @Data
-    static class JoinGroupRequest {
-        private Long userId;
 
+    @Data
+    static class CreateGroupRequest {
+        private Long userId;
+        private String groupName;
     }
 
 
@@ -60,13 +67,6 @@ public class GroupApiController {
         }
 
 
-    }
-
-
-    @Data
-    static class CreateGroupRequest {
-        private Long userId;
-        private String groupName;
     }
 
 

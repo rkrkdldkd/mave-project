@@ -34,7 +34,7 @@ public class JpqlTest {
         Group group = new Group("hello111");
         em.persist(group);
 
-        Long questionId = questionService.createQuestion(group.getGroupName(), "하하하하", 1l);
+        Long questionId = questionService.createQuestion(group.getId(), "하하하하", 1l);
         Question question = em.find(Question.class, questionId);
 
         System.out.println("groupId = " + group.getId());

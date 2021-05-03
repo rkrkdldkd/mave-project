@@ -18,26 +18,21 @@ public class Member {
     @Column(name="member_id")
     private Long id;
 
-
-    private String userId;
-
-    private String phoneNumber;
-
+    private String userName;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="group_id")
     private Group group;
 
-    @OneToMany(mappedBy = "member",cascade = CascadeType.ALL)
-    private List<Answer> answers = new ArrayList<>();
+
 
 
 
 
     //======= 생성 메서드 ========//
 
-    public Member(String userId) {
-        this.userId = userId;
+    public Member(String userName) {
+        this.userName = userName;
     }
 
 

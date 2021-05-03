@@ -17,7 +17,7 @@ public class MemberApiController {
 
     @PostMapping("/api/members")
     public JoinMemberResponse saveMember(@RequestBody JoinMemberRequest request) {
-        Member member = new Member(request.getUserId());
+        Member member = new Member(request.getUserName());
         Long joinedMemberId = memberService.joinMember(member);
         return new JoinMemberResponse(joinedMemberId);
     }
@@ -28,15 +28,15 @@ public class MemberApiController {
 
     @Data
     static class JoinMemberRequest {
-        private String userId; // 어플에서 유저가 사용하는 ID값
+        private String userName; // 어플에서 유저가 사용하는 ID값
     }
 
     @Data
     static class JoinMemberResponse {
-        private Long id;    // DB에 저장된 user의 pk값
+        private Long userId;    // DB에 저장된 user의 PK값
 
-        public JoinMemberResponse(Long id) {
-            this.id = id;
+        public JoinMemberResponse(Long userId) {
+            this.userId = userId;
         }
     }
 

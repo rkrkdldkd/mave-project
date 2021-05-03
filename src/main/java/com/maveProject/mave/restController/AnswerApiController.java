@@ -1,8 +1,9 @@
 package com.maveProject.mave.restController;
 
-import com.maveProject.mave.domain.Member;
+import com.maveProject.mave.domain.Group;
 import com.maveProject.mave.domain.Question;
 import com.maveProject.mave.service.AnswerService;
+import com.maveProject.mave.service.GroupService;
 import com.maveProject.mave.service.MemberService;
 import com.maveProject.mave.service.QuestionService;
 import lombok.Data;
@@ -19,16 +20,16 @@ public class AnswerApiController {
     private final QuestionService questionService;
     private final AnswerService answerService;
     private final MemberService memberService;
+    private final GroupService groupService;
 
 
     @PostMapping("/api/answer/{questionNumber}")
     public RegistAnswerResponse registAnswer(@PathVariable(value = "questionNumber") Long questionNumber,
                                              @RequestBody RegistAnswerRequest request){
-        Question question = questionService.findQuestion(request.groupName, questionNumber);
-        Member member = memberService.findMember(request.getUserId());
-        answerService.createAnswer(member,question,request.getAnswer());
+        Group group = groupService.findGroup(request.getGroupId());
+        Question question = questionService.findQuestion(group.getId(), questionNumber);
+        answerService.createAnswer(group,question,request.getAnswer());
         return new RegistAnswerResponse("답변이 등록되었습니다.");
-
 
     }
 
@@ -39,8 +40,8 @@ public class AnswerApiController {
     @Data
     static class RegistAnswerRequest{
 
-        private String userId;
-        private String groupName;
+        private Long userId;
+        private Long groupId;
         private String answer;
 
     }
