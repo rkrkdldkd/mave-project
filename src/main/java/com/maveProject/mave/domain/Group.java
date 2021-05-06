@@ -3,7 +3,6 @@ package com.maveProject.mave.domain;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -22,6 +21,11 @@ public class Group {
 
     private String groupName;
 
+    private int remainCount;
+
+    @Enumerated(EnumType.STRING)
+    private IsFinish status;
+
     @OneToMany(mappedBy = "group",cascade = CascadeType.ALL)
     private List<Member> members = new ArrayList<>();
 
@@ -30,6 +34,8 @@ public class Group {
 
     @OneToMany(mappedBy = "group",cascade = CascadeType.ALL )
     private List<Answer> answers = new ArrayList<>();
+
+
 
 
     //===== 생성 메서드 =====//
@@ -43,9 +49,18 @@ public class Group {
 
     //===== 연관관계 메서드 =====//
 
+    public void setRemainCountCount(int count) {
+        this.remainCount = count;
+    }
 
+    public void setStatus(IsFinish status) {
+        this.status = status;
+    }
 
     //====== 비즈니스 메서드 =====//
+
+
+
 
     /**
      * 질문 가져오기

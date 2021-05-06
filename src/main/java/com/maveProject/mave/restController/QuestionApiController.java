@@ -1,6 +1,7 @@
 package com.maveProject.mave.restController;
 
 import com.maveProject.mave.domain.QuestionBank;
+import com.maveProject.mave.service.GroupService;
 import com.maveProject.mave.service.QuestionBankService;
 import com.maveProject.mave.service.QuestionService;
 import lombok.Data;
@@ -16,6 +17,7 @@ public class QuestionApiController {
 
     private final QuestionBankService questionBankService;
     private final QuestionService questionService;
+    private final GroupService groupService;
 
     /**
      * 질문 보내주세요!
@@ -25,6 +27,7 @@ public class QuestionApiController {
                                              @RequestBody giveQuestionRequest request){
         QuestionBank question = questionBankService.findQuestion(questionNumber);
         questionService.createQuestion(request.getGroupId(),question.getContent(),questionNumber);
+        groupService.setCount(request.getGroupId());
         return new giveQuestionResponse(question.getContent());
     }
 

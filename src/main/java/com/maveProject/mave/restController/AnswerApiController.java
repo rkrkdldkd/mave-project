@@ -19,7 +19,6 @@ public class AnswerApiController {
 
     private final QuestionService questionService;
     private final AnswerService answerService;
-    private final MemberService memberService;
     private final GroupService groupService;
 
 
@@ -29,7 +28,9 @@ public class AnswerApiController {
         Group group = groupService.findGroup(request.getGroupId());
         Question question = questionService.findQuestion(group.getId(), questionNumber);
         answerService.createAnswer(group,question,request.getAnswer());
-        return new RegistAnswerResponse("답변이 등록되었습니다.");
+        groupService.minusCount(group);
+        Boolean state = groupService.compareState(group);
+        return new RegistAnswerResponse(state ,"답변이 등록되었습니다.");
 
     }
 
@@ -49,8 +50,10 @@ public class AnswerApiController {
     @Data
     static class RegistAnswerResponse{
         private String answer;
+        private Boolean isFinish;
 
-        public RegistAnswerResponse(String answer) {
+        public RegistAnswerResponse(Boolean isFinish, String answer) {
+            this.isFinish = isFinish;
             this.answer = answer;
         }
     }
