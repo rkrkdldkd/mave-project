@@ -20,6 +20,7 @@ public class Answer {
     @Column(name="answer_id")
     private Long id;
 
+    private String answerContent;
 
     @ManyToOne(fetch = FetchType.LAZY ,cascade = CascadeType.ALL)
     @JoinColumn(name="question_id")
@@ -29,7 +30,11 @@ public class Answer {
     @JoinColumn(name="group_id")
     private Group group;
 
-    private String answerContent;
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn(name="member_id")
+    private Member member;
+
+
 
     //====== 생성 메서드=====//
 
@@ -49,6 +54,11 @@ public class Answer {
     public void registGroup(Group group){
         this.group = group;
         group.getAnswers().add(this);
+    }
+
+    public void registMember(Member member){
+        this.member = member;
+        member.getAnswers().add(this);
     }
 
 

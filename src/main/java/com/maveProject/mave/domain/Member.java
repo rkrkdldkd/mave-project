@@ -24,6 +24,9 @@ public class Member {
     @JoinColumn(name="group_id")
     private Group group;
 
+    @OneToMany(mappedBy = "member")
+    private List<Answer> answers = new ArrayList<>();
+
 
 
 

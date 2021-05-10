@@ -2,12 +2,15 @@ package com.maveProject.mave.service;
 
 import com.maveProject.mave.domain.Answer;
 import com.maveProject.mave.domain.Group;
+import com.maveProject.mave.domain.Member;
 import com.maveProject.mave.domain.Question;
 import com.maveProject.mave.repository.AnswerRepository;
 import com.maveProject.mave.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -18,13 +21,20 @@ public class AnswerService {
 
 
     @Transactional
-    public void createAnswer(Group group, Question question, String content){
+    public void createAnswer(Member member, Group group, Question question, String content){
         Answer answer = new Answer(content);
+        answer.registMember(member);
         answer.addAnswer(question);
         answer.registGroup(group);
         answerRepository.save(answer);
 
     }
+
+    public List<Answer> findAllAnswer(Long groupId,Long questionNumber){
+        return answerRepository.findAllAnswer(groupId, questionNumber);
+    }
+
+
 
 
 

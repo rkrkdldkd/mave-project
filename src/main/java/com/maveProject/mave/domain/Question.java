@@ -18,6 +18,9 @@ public class Question {
     @Column(name="question_id")
     private Long id;
 
+    private String questionContent;
+    private Long questionNumber;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="group_id")
     private Group group;
@@ -25,8 +28,6 @@ public class Question {
     @OneToMany(mappedBy = "question",cascade = CascadeType.ALL)
     private List<Answer> answers = new ArrayList<>();
 
-    private String questionContent;
-    private Long questionNumber;
 
     //===== 생성 메서드 =====//
 

@@ -40,6 +40,11 @@ public class MemberService {
         return member.getGroup().getId();
     }
 
+    public Member findMember(Long memberId){
+        Member member = memberRepository.findById(memberId);
+        return member;
+    }
+
 
 
 
