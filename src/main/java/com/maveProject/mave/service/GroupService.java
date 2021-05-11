@@ -15,6 +15,12 @@ public class GroupService {
     private final GroupRepository groupRepository;
 
     @Transactional
+    public Long saveGroup(Group group){
+        Long groupId = groupRepository.save(group);
+        return groupId;
+    }
+
+    @Transactional
     public Group findGroup(Long groupId){
         Group group =  groupRepository.findById(groupId);
         return group;

@@ -19,23 +19,12 @@ public class MemberService {
 
     @Transactional
     public Long joinMember(Member member){
-        memberRepository.save(member);
-        return member.getId();
+        Long memberId = memberRepository.save(member);
+        return memberId;
     }
 
     @Transactional
-    public Long firstJoinGroup(Long userId,String groupName){
-        Group group = new Group(groupName);
-        groupRepository.save(group);
-        Member member = memberRepository.findById(userId);
-        member.SetGroup(group);
-        return member.getGroup().getId();
-    }
-
-    @Transactional
-    public Long JoinGroup(Long userId,Long groupId){
-        Member member = memberRepository.findById(userId);
-        Group group = groupRepository.findById(groupId);
+    public Long joinGroup(Member member,Group group){
         member.SetGroup(group);
         return member.getGroup().getId();
     }

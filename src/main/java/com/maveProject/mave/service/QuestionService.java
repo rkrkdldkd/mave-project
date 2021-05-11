@@ -17,18 +17,14 @@ public class QuestionService {
     private final GroupRepository groupRepository;
 
     @Transactional
-    public Long createQuestion(Long groupId,String questionContent, Long questionNumber){
-        Group group = groupRepository.findById(groupId);
-        Question question = new Question(group, questionContent,questionNumber);
+    public Long createQuestion(Question question){
         Long questionId = questionRepository.save(question);
         return questionId;
     }
 
-    public Question findQuestion(Long groupId, Long questionNumber){
-        Group group = groupRepository.findById(groupId);
-        Question question = questionRepository.findByNumberForGroup(group.getId(),questionNumber).get(0);
+    public Question findQuestion(Group group, Long questionNumber){
+        Question question = questionRepository.findByNumberForGroupQuery(group.getId(),questionNumber).get(0);
         return question;
-
     }
 
 

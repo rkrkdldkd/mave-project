@@ -33,8 +33,9 @@ public class AnswerApiController {
                                              @RequestBody RegistAnswerRequest request){
         Member member = memberService.findMember(request.getUserId());
         Group group = groupService.findGroup(request.getGroupId());
-        Question question = questionService.findQuestion(group.getId(), questionNumber);
-        answerService.createAnswer(member,group,question,request.getAnswer());
+        Question question = questionService.findQuestion(group,questionNumber);
+        Answer answer = new Answer(request.getAnswer());
+        answerService.createAnswer(member,group,question,answer);
         groupService.minusCount(group);
         Boolean state = groupService.compareState(group);
         return new RegistAnswerResponse(state ,"답변이 등록되었습니다.");

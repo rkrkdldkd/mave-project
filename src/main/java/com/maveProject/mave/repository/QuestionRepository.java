@@ -1,18 +1,30 @@
 package com.maveProject.mave.repository;
 
 import com.maveProject.mave.domain.Member;
+import com.maveProject.mave.domain.QGroup;
+import com.maveProject.mave.domain.QQuestion;
 import com.maveProject.mave.domain.Question;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
-@RequiredArgsConstructor
+import static com.maveProject.mave.domain.QGroup.group;
+import static com.maveProject.mave.domain.QQuestion.question;
+
+
 @Repository
 public class QuestionRepository {
 
     private final EntityManager em;
+    private final JPAQueryFactory queryFactory;
+
+    public QuestionRepository(EntityManager em) {
+        this.em = em;
+        this.queryFactory = new JPAQueryFactory(em);
+    }
 
     public Long save(Question question){
         em.persist(question);
@@ -31,11 +43,21 @@ public class QuestionRepository {
                 .getResultList();
     }
 
-    public List<Question> findByNumberForGroup(Long groupId, Long questionNumber){
-        return em.createQuery("select q from Question q join q.group g " +
-                "where q.questionNumber = :questionNumber and g.id = :groupId",Question.class)
-                .setParameter("questionNumber",questionNumber)
-                .setParameter("groupId",groupId)
-                .getResultList();
+//    public List<Question> findByNumberForGroup(Long groupId, Long questionNumber){
+//        return em.createQuery("select q from Question q join q.group g " +
+//                "where q.questionNumber = :questionNumber and g.id = :groupId",Question.class)
+//                .setParameter("questionNumber",questionNumber)
+//                .setParameter("groupId",groupId)
+//                .getResultList();
+//    }
+
+    public List<Question> findByNumberForGroupQuery(Long groupId, Long questionNumber){
+        return queryFactory
+                .selectFrom(question)
+                .join(question.group,group).fetchJoin()
+                .where( group.id.eq(groupId),
+                        question.questionNumber.eq(questionNumber)
+                )
+                .fetch();
     }
 }

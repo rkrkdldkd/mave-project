@@ -21,17 +21,15 @@ public class AnswerService {
 
 
     @Transactional
-    public void createAnswer(Member member, Group group, Question question, String content){
-        Answer answer = new Answer(content);
+    public void createAnswer(Member member, Group group, Question question, Answer answer){
         answer.registMember(member);
         answer.addAnswer(question);
         answer.registGroup(group);
         answerRepository.save(answer);
-
     }
 
     public List<Answer> findAllAnswer(Long groupId,Long questionNumber){
-        return answerRepository.findAllAnswer(groupId, questionNumber);
+        return answerRepository.findAllAnswerQuery(groupId, questionNumber);
     }
 
 

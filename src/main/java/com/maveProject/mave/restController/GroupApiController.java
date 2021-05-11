@@ -1,6 +1,9 @@
 package com.maveProject.mave.restController;
 
 
+import com.maveProject.mave.domain.Group;
+import com.maveProject.mave.domain.Member;
+import com.maveProject.mave.service.GroupService;
 import com.maveProject.mave.service.MemberService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -15,18 +18,24 @@ import org.springframework.web.bind.annotation.RestController;
 public class GroupApiController {
 
     private final MemberService memberService;
+    private final GroupService groupService;
 
 
     @PostMapping("/api/groups")
     public CreateGroupResponse createGroup(@RequestBody CreateGroupRequest request) {
-        Long groupId = memberService.firstJoinGroup(request.getUserId(), request.getGroupName());
+        Group group = new Group(request.getGroupName()); // 요청이 들어온 이름으로 그룹 생성
+        groupService.saveGroup(group); // DB에 그룹 저장
+        Member member = memberService.findMember(request.getUserId()); // 그룹에 들어갈 멤버 찾아오기
+        Long groupId = memberService.joinGroup(member, group); // 그룹 가입
         return new CreateGroupResponse(groupId);
     }
 
     @PostMapping("/api/groups/{groupId}")
     public JoinGroupResponse joinGroup(@PathVariable(value = "groupId") Long groupId,
                                        @RequestBody JoinGroupRequest request) {
-        Long joinGroupId = memberService.JoinGroup(request.getUserId(), groupId);
+        Member member = memberService.findMember(request.getUserId()); // 그룹에 들어갈 멤버 찾아오기
+        Group group = groupService.findGroup(groupId); // 들어갈 그룹 찾아오기
+        Long joinGroupId = memberService.joinGroup(member,group); // 그룹 가입
         return new JoinGroupResponse(joinGroupId);
 
     }

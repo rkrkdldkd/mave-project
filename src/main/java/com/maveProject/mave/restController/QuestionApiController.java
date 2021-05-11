@@ -1,5 +1,7 @@
 package com.maveProject.mave.restController;
 
+import com.maveProject.mave.domain.Group;
+import com.maveProject.mave.domain.Question;
 import com.maveProject.mave.domain.QuestionBank;
 import com.maveProject.mave.service.GroupService;
 import com.maveProject.mave.service.QuestionBankService;
@@ -26,7 +28,9 @@ public class QuestionApiController {
     public giveQuestionResponse giveQuestion(@PathVariable(value = "questionNumber") Long questionNumber,
                                              @RequestBody giveQuestionRequest request){
         QuestionBank question = questionBankService.findQuestion(questionNumber);
-        questionService.createQuestion(request.getGroupId(),question.getContent(),questionNumber);
+        Group group = groupService.findGroup(request.groupId);
+        Question todayQuestion = new Question(group, question.getContent(), question.getQuestionNumber());
+        questionService.createQuestion(todayQuestion);
         groupService.setCount(request.getGroupId());
         return new giveQuestionResponse(question.getContent());
     }

@@ -4,6 +4,7 @@ import com.maveProject.mave.domain.Group;
 import com.maveProject.mave.domain.Member;
 import com.maveProject.mave.domain.QuestionBank;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +15,7 @@ import javax.persistence.EntityManager;
  * 임시로 DB에 시작 데이터 넣음
  */
 
+@Profile("local")
 @RequiredArgsConstructor
 @Component
 public class InitDb {
