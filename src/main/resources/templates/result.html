@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>결과</title>
+
+</head>
+<body>
+
+<h1>목록</h1>
+<li>
+    <span th:text="${file.filename}"></span>
+    <a href="#" th:href="${'download/'+fileId}">[download]</a>
+</li>

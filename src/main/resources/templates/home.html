@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>게시판 - 글쓰기</title>
+</head>
+<body>
+    <form action="/post" method="post" enctype="multipart/form-data">
+        <label for="inputFile" class="col-sm-2 col-form-label"><strong>첨부 파일</strong></label>
+        <div class="custom-file" id="inputFile">
+            <input name="file" type="file" class="custom-file-input" id="customFile">
+            <label class="custom-file-label" for="customFile">파일을 선택해 주세요.</label>
+        </div>
+        <div class="row">
+            <div class="col-auto mr-auto"></div>
+            <div class="col-auto">
+                <input class="btn btn-primary" type="submit" role="button" value="글쓰기">
+            </div>
+        </div>
+    </form>
+</body>
+</html>
