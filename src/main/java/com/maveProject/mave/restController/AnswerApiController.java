@@ -42,7 +42,7 @@ public class AnswerApiController {
 
     }
 
-    @PostMapping("/api/AllAnswer/{questionNumber}")
+    @PostMapping("/api/allAnswer/{questionNumber}")
     public List<AllAnswerResponse> allAnswer(@PathVariable(value = "questionNumber") Long questionNumber,
                                        @RequestBody AllAnswerRequest request){
         List<AllAnswerResponse> result = answerService.findAllAnswer(request.getGroupId(), questionNumber);
