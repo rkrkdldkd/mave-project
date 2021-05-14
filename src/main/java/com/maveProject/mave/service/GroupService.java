@@ -35,6 +35,9 @@ public class GroupService {
 
     @Transactional
     public void minusCount(Group group){
+        if(group.getRemainCount() == 0){
+            return;
+        }
         group.setRemainCountCount(group.getRemainCount()-1);
     }
 
