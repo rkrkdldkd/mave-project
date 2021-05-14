@@ -6,6 +6,7 @@ import com.maveProject.mave.domain.Member;
 import com.maveProject.mave.domain.Question;
 import com.maveProject.mave.repository.AnswerRepository;
 import com.maveProject.mave.repository.QuestionRepository;
+import com.maveProject.mave.restController.AnswerApiController;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +29,7 @@ public class AnswerService {
         answerRepository.save(answer);
     }
 
-    public List<Answer> findAllAnswer(Long groupId,Long questionNumber){
+    public List<AnswerApiController.AllAnswerResponse> findAllAnswer(Long groupId, Long questionNumber){
         return answerRepository.findAllAnswerQuery(groupId, questionNumber);
     }
 

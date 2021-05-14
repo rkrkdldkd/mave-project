@@ -2,6 +2,8 @@ package com.maveProject.mave.repository;
 
 
 import com.maveProject.mave.domain.Answer;
+import com.maveProject.mave.restController.AnswerApiController;
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.Getter;
 import org.springframework.stereotype.Repository;
@@ -13,6 +15,7 @@ import static com.maveProject.mave.domain.QAnswer.answer;
 import static com.maveProject.mave.domain.QGroup.group;
 import static com.maveProject.mave.domain.QMember.member;
 import static com.maveProject.mave.domain.QQuestion.question;
+import static com.maveProject.mave.restController.AnswerApiController.*;
 
 @Getter
 @Repository
@@ -43,18 +46,20 @@ public class AnswerRepository {
 //                .getResultList();
 //    }
 
-    public List<Answer> findAllAnswerQuery(Long groupId, Long questionNumber){
-        List<Answer> result = queryFactory.select(answer)
-                .from(answer)
-                .join(answer.group, group).fetchJoin()
-                .join(answer.member, member).fetchJoin()
-                .join(answer.question, question).fetchJoin()
-                .where(
-                        group.id.eq(groupId),
-                        question.questionNumber.eq(questionNumber)
-                )
-                .fetch();
-        return result;
+    public List<AllAnswerResponse> findAllAnswerQuery(Long groupId, Long questionNumber){
+       return queryFactory.select(Projections.constructor(AllAnswerResponse.class,
+               answer.member.id,
+               answer.answerContent))
+               .from(answer)
+               .join(answer.group,group)
+               .join(answer.member,member)
+               .join(answer.question,question)
+               .where(
+                       group.id.eq(groupId),
+                       question.questionNumber.eq(questionNumber)
+               )
+               .fetch();
+
     }
 
 

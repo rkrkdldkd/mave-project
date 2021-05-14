@@ -45,9 +45,7 @@ public class AnswerApiController {
     @PostMapping("/api/AllAnswer/{questionNumber}")
     public List<AllAnswerResponse> allAnswer(@PathVariable(value = "questionNumber") Long questionNumber,
                                        @RequestBody AllAnswerRequest request){
-        List<Answer> allAnswer = answerService.findAllAnswer(request.getGroupId(), questionNumber);
-        List<AllAnswerResponse> result
-                = allAnswer.stream().map(a -> new AllAnswerResponse(a)).collect(Collectors.toList());
+        List<AllAnswerResponse> result = answerService.findAllAnswer(request.getGroupId(), questionNumber);
 
         return result;
     }
@@ -85,13 +83,13 @@ public class AnswerApiController {
     }
 
     @Data
-    static class AllAnswerResponse{
+    public static class AllAnswerResponse{
         private Long userId;
         private String answerContent;
 
-        public AllAnswerResponse(Answer answer) {
-            this.userId = answer.getMember().getId();
-            this.answerContent = answer.getAnswerContent();
+        public AllAnswerResponse(Long userId, String answerContent) {
+            this.userId = userId;
+            this.answerContent = answerContent;
         }
     }
 

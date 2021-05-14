@@ -2,6 +2,7 @@ package com.maveProject.mave.repository;
 
 import com.maveProject.mave.domain.*;
 import com.maveProject.mave.repository.AnswerRepository;
+import com.maveProject.mave.restController.AnswerApiController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -50,7 +51,8 @@ class AnswerRepositoryTest {
         answer.registMember(member);
         em.persist(answer);
 
-        List<Answer> result = answerRepository.findAllAnswerQuery(group.getId(), questionBank.getQuestionNumber());
+        List<AnswerApiController.AllAnswerResponse> result = answerRepository.findAllAnswerQuery(group.getId(), questionBank.getQuestionNumber());
+
 
         System.out.println("result = " + result.get(0).getAnswerContent());
 
