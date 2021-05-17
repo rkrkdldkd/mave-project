@@ -21,6 +21,9 @@ class GroupServiceTest {
     GroupRepository groupRepository;
 
     @Autowired
+    GroupService groupService;
+
+    @Autowired
     EntityManager em;
 
     @Transactional
@@ -29,6 +32,50 @@ class GroupServiceTest {
         //given
         List<Group> groups = groupRepository.findByName("그루비룸");
         Group group = groups.get(0);
+
+
+        //when
+
+        //then
+    }
+
+    @Transactional
+    @Test
+    public void minusCount(){
+        //given
+        Group group = new Group("Team1");
+        em.persist(group);
+
+        em.flush();
+        em.clear();
+
+        Group findGroup = em.find(Group.class, group.getId());
+
+        groupService.minusCount(findGroup);
+
+        System.out.println("findGroup = " + findGroup.getRemainCount());
+
+
+        //when
+
+        //then
+    }
+
+    @Transactional
+    @Test
+    public void setCount(){
+        //given
+        Group group = new Group("Team1");
+        em.persist(group);
+
+        em.flush();
+        em.clear();
+
+        Group findGroup = em.find(Group.class, group.getId());
+
+        int count = groupService.setCount(findGroup);
+
+        System.out.println("count = " + count);
 
 
         //when

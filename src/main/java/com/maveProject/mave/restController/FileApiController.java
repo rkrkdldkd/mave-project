@@ -1,4 +1,4 @@
-package com.maveProject.mave.controller;
+package com.maveProject.mave.restController;
 
 import com.maveProject.mave.dto.FileDto;
 import com.maveProject.mave.service.FileService;
@@ -8,12 +8,7 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -23,18 +18,18 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @RequiredArgsConstructor
-@Controller
-public class FileController {
+@RestController
+public class FileApiController {
+
 
     private final FileService fileService;
 
-    @PostMapping("/post")
-    public String write(@RequestParam("file") MultipartFile files, Model model) {
+    @PostMapping("/api/file")
+    public void write(@RequestBody MultipartFile files) {
         try {
             if (files.isEmpty()) {
-                return "redirect:/home";
+                return;
             }
-
             String originalFilename = files.getOriginalFilename();
             // 파일 이름 가져오기
             String filename = new MD5Generator(originalFilename).toString(); // 파일 이름 기반 hash값 생성?
@@ -57,16 +52,13 @@ public class FileController {
             fileDto.setFilePath(filePath);
             Long fileId = fileService.saveFile(fileDto); // fileDto를 DB에 저장한다.
 
-            model.addAttribute("file", fileDto);    // fileDto를 result.html에 넘긴다.
-            model.addAttribute("fileId", fileId);    // 저장한 fileId를 result.html에 넘긴다.
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "result";
+
     }
 
-    @GetMapping("/download/{fileId}")
+    @GetMapping("/api/download/{fileId}")
     public ResponseEntity<InputStreamResource> fileDownload(@PathVariable("fileId") Long fileId) throws IOException {
         FileDto fileDto = fileService.getFile(fileId); // DB에 저장된 정보 가져온다.
         Path path = Paths.get(fileDto.getFilePath()); // 가져온 정보에 저장된 path 가져온다.

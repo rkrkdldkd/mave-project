@@ -15,21 +15,17 @@ public class Member {
 
     @Id
     @GeneratedValue
-    @Column(name="member_id")
+    @Column(name = "member_id")
     private Long id;
 
     private String userName;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="group_id")
+    @JoinColumn(name = "group_id")
     private Group group;
 
     @OneToMany(mappedBy = "member")
     private List<Answer> answers = new ArrayList<>();
-
-
-
-
 
 
     //======= 생성 메서드 ========//
@@ -41,7 +37,7 @@ public class Member {
 
     //======= 연관관계 매서드 ========//
 
-    public void SetGroup(Group group){
+    public void SetGroup(Group group) {
         this.group = group;
         group.getMembers().add(this);
     }

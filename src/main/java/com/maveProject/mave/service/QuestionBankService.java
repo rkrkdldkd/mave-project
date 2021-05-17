@@ -6,8 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Service
@@ -16,8 +14,7 @@ public class QuestionBankService {
     private final QuestionBankRepository questionBankRepository;
 
     public QuestionBank findQuestion(Long questionNumber){
-        List<QuestionBank> questions = questionBankRepository.findByNumber(questionNumber);
-        return questions.get(0);
+        return questionBankRepository.findByNumber(questionNumber).get(0);
     }
 
 

@@ -8,6 +8,6 @@ public class Flower {
 
     @Id
     @GeneratedValue
-    @Column(name="flower_id")
+    @Column(name = "flower_id")
     private Long id;
 }

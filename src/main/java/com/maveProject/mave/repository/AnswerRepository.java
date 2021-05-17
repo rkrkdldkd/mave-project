@@ -2,7 +2,6 @@ package com.maveProject.mave.repository;
 
 
 import com.maveProject.mave.domain.Answer;
-import com.maveProject.mave.restController.AnswerApiController;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.Getter;
@@ -15,7 +14,7 @@ import static com.maveProject.mave.domain.QAnswer.answer;
 import static com.maveProject.mave.domain.QGroup.group;
 import static com.maveProject.mave.domain.QMember.member;
 import static com.maveProject.mave.domain.QQuestion.question;
-import static com.maveProject.mave.restController.AnswerApiController.*;
+import static com.maveProject.mave.restController.AnswerApiController.AllAnswerResponse;
 
 @Getter
 @Repository

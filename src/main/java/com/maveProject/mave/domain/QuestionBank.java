@@ -19,7 +19,7 @@ public class QuestionBank {
 
     @Id
     @GeneratedValue
-    @Column(name="questionBank_id")
+    @Column(name = "questionBank_id")
     private Long id;
 
     private Long questionNumber;

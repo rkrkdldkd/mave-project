@@ -19,8 +19,8 @@ public class MemberService {
 
     @Transactional
     public Long joinMember(Member member){
-        Long memberId = memberRepository.save(member);
-        return memberId;
+        return  memberRepository.save(member);
+
     }
 
     @Transactional
@@ -30,8 +30,7 @@ public class MemberService {
     }
 
     public Member findMember(Long memberId){
-        Member member = memberRepository.findById(memberId);
-        return member;
+        return  memberRepository.findById(memberId);
     }
 
 

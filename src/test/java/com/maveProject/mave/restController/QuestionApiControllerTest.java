@@ -39,7 +39,7 @@ class QuestionApiControllerTest {
         System.out.println("group.getMembers().get(0) = " + group.getMembers().get(0).getUserName());
         System.out.println("group.getMembers().get(0) = " + group.getMembers().get(1).getUserName());
 
-        int count = groupService.setCount(group.getId());
+        int count = groupService.setCount(group);
         System.out.println("count = " + count);
         //when
 

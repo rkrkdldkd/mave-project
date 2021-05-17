@@ -1,11 +1,7 @@
 package com.maveProject.mave.repository;
 
-import com.maveProject.mave.domain.Member;
-import com.maveProject.mave.domain.QGroup;
-import com.maveProject.mave.domain.QQuestion;
 import com.maveProject.mave.domain.Question;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

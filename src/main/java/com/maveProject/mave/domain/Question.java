@@ -11,27 +11,27 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Question {
+public class Question extends BaseTimeEntity {
 
     @Id
     @GeneratedValue
-    @Column(name="question_id")
+    @Column(name = "question_id")
     private Long id;
 
     private String questionContent;
     private Long questionNumber;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="group_id")
+    @JoinColumn(name = "group_id")
     private Group group;
 
-    @OneToMany(mappedBy = "question",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Answer> answers = new ArrayList<>();
 
 
     //===== 생성 메서드 =====//
 
-    public Question(Group group,String questionContent, Long questionNumber) {
+    public Question(Group group, String questionContent, Long questionNumber) {
         this.group = group;
         this.questionContent = questionContent;
         this.questionNumber = questionNumber;
@@ -40,13 +40,10 @@ public class Question {
 
     //===== 연관관계 메서드 =====//
 
-    public void addQuestion(Group group){
+    public void addQuestion(Group group) {
         this.group = group;
         group.getQuestions().add(this);
     }
-
-
-
 
 
 }

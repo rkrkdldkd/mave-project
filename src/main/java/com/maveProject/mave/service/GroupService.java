@@ -1,7 +1,6 @@
 package com.maveProject.mave.service;
 
 import com.maveProject.mave.domain.Group;
-import com.maveProject.mave.domain.IsFinish;
 import com.maveProject.mave.repository.GroupRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,41 +15,28 @@ public class GroupService {
 
     @Transactional
     public Long saveGroup(Group group){
-        Long groupId = groupRepository.save(group);
-        return groupId;
+       return  groupRepository.save(group);
+
     }
 
     @Transactional
     public Group findGroup(Long groupId){
-        Group group =  groupRepository.findById(groupId);
-        return group;
+        return groupRepository.findById(groupId);
     }
 
     @Transactional
-    public int setCount(Long groupId){
-        Group group = groupRepository.findById(groupId);
-        group.setRemainCountCount(group.getMembers().size());
-        return group.getRemainCount();
+    public int setCount(Group group){
+      return group.setCount();
     }
 
     @Transactional
     public void minusCount(Group group){
-        if(group.getRemainCount() == 0){
-            return;
-        }
-        group.setRemainCountCount(group.getRemainCount()-1);
+        group.minusCount();
     }
 
     @Transactional
     public Boolean compareState(Group group){
-        if(group.getRemainCount() == 0){
-            group.setStatus(IsFinish.YES);
-            return true;
-        }
-
-        return false;
+        return group.compareState();
     }
-
-
 
 }
