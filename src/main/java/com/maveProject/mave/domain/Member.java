@@ -1,5 +1,6 @@
 package com.maveProject.mave.domain;
 
+import com.maveProject.mave.util.MD5Generator;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,15 @@ public class Member {
     @Column(name = "member_id")
     private Long id;
 
+    private String userId;
+
+    private String password;
+
     private String userName;
+
+    private String nickName;
+
+
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "group_id")
@@ -28,10 +37,22 @@ public class Member {
     private List<Answer> answers = new ArrayList<>();
 
 
-    //======= 생성 메서드 ========//
+    //======= 생성자 ========//
 
     public Member(String userName) {
         this.userName = userName;
+    }
+
+    public Member(String userId, String password, String userName, String nickName) {
+        this.userId = userId;
+        this.password = password;
+        this.userName = userName;
+        this.nickName = nickName;
+    }
+
+    //====== Setter =======//
+    public void setPassword(String password){
+        this.password = password;
     }
 
 
@@ -43,6 +64,10 @@ public class Member {
     }
 
     //====== 비즈니스 로직 ======//
+
+    public void changePasswordToHash(){
+         password = Integer.toString(password.hashCode());
+    }
 
 
 }

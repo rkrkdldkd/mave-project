@@ -1,6 +1,10 @@
 package com.maveProject.mave.repository;
 
+import com.maveProject.mave.domain.QQuestion;
 import com.maveProject.mave.domain.Question;
+import com.maveProject.mave.restController.AnswerApiController;
+import com.maveProject.mave.restController.QuestionApiController;
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
 
@@ -56,4 +60,18 @@ public class QuestionRepository {
                 )
                 .fetch();
     }
+
+    public List<QuestionApiController.GiveAllQuestionResponse> findAllQuestionForGroup(Long groupId, Long questionNumber) {
+        return  queryFactory
+                .select(Projections.constructor(QuestionApiController.GiveAllQuestionResponse.class,
+                question.questionContent))
+                .from(question)
+                .join(question.group,group)
+                .where(question.questionNumber.loe(questionNumber))
+                .fetch();
+
+    }
+
+
+
 }

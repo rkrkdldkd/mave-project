@@ -41,5 +41,18 @@ class MemberApiControllerTest {
 
         //then
     }
+    
+    @Test
+    public void 비밀번호_바꾸기(){
+        //given
+        Member member = new Member("member1");
+        member.setPassword("123456");
+        member.changePasswordToHash();
+        System.out.println("member.getPassword() = " + member.getPassword());
+
+        //when
+        
+        //then
+    }
 
 }

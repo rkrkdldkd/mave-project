@@ -21,6 +21,9 @@ public class GroupApiController {
     private final GroupService groupService;
 
 
+    /**
+     * 그룹을 생성한 후 DB에 저장하는 그룹 생성 api 입니다.
+     */
     @PostMapping("/api/groups")
     public CreateGroupResponse createGroup(@RequestBody CreateGroupRequest request) {
         Group group = new Group(request.getGroupName()); // 요청이 들어온 이름으로 그룹 생성
@@ -30,6 +33,9 @@ public class GroupApiController {
         return new CreateGroupResponse(groupId);
     }
 
+    /**
+     * 기존에 있는 그룹에 가입하는 api 입니다.
+     */
     @PostMapping("/api/groups/{groupId}")
     public JoinGroupResponse joinGroup(@PathVariable(value = "groupId") Long groupId,
                                        @RequestBody JoinGroupRequest request) {
