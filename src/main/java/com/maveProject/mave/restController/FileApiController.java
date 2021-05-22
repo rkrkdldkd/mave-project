@@ -25,7 +25,7 @@ public class FileApiController {
     private final FileService fileService;
 
     @PostMapping("/api/file")
-    public void write(@RequestBody MultipartFile files) {
+    public void write(@RequestParam("file") MultipartFile files) {
         try {
             if (files.isEmpty()) {
                 return;
@@ -64,7 +64,7 @@ public class FileApiController {
         Path path = Paths.get(fileDto.getFilePath()); // 가져온 정보에 저장된 path 가져온다.
         InputStreamResource resource = new InputStreamResource(Files.newInputStream(path));
         return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType("application/octet-stream"))
+                .contentType(MediaType.MULTIPART_FORM_DATA)
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileDto.getOrigFilename() + "\"")
                 .body(resource);
     }
