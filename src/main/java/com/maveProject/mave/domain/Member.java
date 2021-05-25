@@ -25,9 +25,6 @@ public class Member {
 
     private String userName;
 
-    private String nickName;
-
-
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "group_id")
@@ -43,15 +40,14 @@ public class Member {
         this.userName = userName;
     }
 
-    public Member(String userId, String password, String userName, String nickName) {
+    public Member(String userId, String password, String userName) {
         this.userId = userId;
         this.password = password;
         this.userName = userName;
-        this.nickName = nickName;
     }
 
     //====== Setter =======//
-    public void setPassword(String password){
+    public void setPassword(String password) {
         this.password = password;
     }
 
@@ -65,8 +61,8 @@ public class Member {
 
     //====== 비즈니스 로직 ======//
 
-    public void changePasswordToHash(){
-         password = Integer.toString(password.hashCode());
+    public void changePasswordToHash() {
+        password = Integer.toString(password.hashCode());
     }
 
 

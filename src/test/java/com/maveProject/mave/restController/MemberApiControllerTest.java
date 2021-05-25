@@ -10,8 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+@Transactional
 @SpringBootTest
 class MemberApiControllerTest {
 
@@ -52,6 +51,29 @@ class MemberApiControllerTest {
 
         //when
         
+        //then
+    }
+
+
+    @Test
+    public void 로그인_체크(){
+        Member member = new Member("member1");
+        member.setPassword("123");
+        member.changePasswordToHash();
+        em.persist(member);
+
+        //given
+        Member findMember = memberRepository.findByUserId("member1").get(0);
+        if(findMember.getPassword().equals(Integer.toString("123".hashCode()))){
+            System.out.println("true");
+        }else{
+            System.out.println("false");
+            System.out.println(findMember.getPassword());
+            System.out.println(Integer.toString("123".hashCode()));
+        }
+
+        //when
+
         //then
     }
 

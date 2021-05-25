@@ -33,6 +33,24 @@ public class MemberService {
         return  memberRepository.findById(memberId);
     }
 
+    public Member findMemberByName(String userId){
+        return memberRepository.findByUserId(userId).get(0);
+    }
+
+    public Boolean passwordCheck(String userPassword, String inDbPassword){
+        if(userPassword.equals(inDbPassword)){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+
+
+
+
+
+
 
 
 
