@@ -29,7 +29,7 @@ public class MemberApiController {
         return new JoinMemberResponse(joinedMemberId);
     }
 
-    @GetMapping("/api/members/login")
+    @PostMapping("/api/members/login")
     public LoginResponse loginCheck(@RequestBody LoginRequest request){
         Member findMember = memberService.findMemberByName(request.getUserId());
         // DB에서 로그인을 시도하는 멤버를 가져온다

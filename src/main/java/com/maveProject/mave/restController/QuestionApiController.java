@@ -38,7 +38,7 @@ public class QuestionApiController {
      *
      * 지난 질문들을 List에 담아 반환해줍니다.
      */
-    @GetMapping("/api/allQuestion/{questionNumber}")
+    @PostMapping("/api/allQuestion/{questionNumber}")
     public List<GiveAllQuestionResponse> giveAllQuestion(@PathVariable(value = "questionNumber") Long questionNumber,
                                                          @RequestBody GiveAllQuestionRequest request){
         Group group = groupService.findGroup(request.groupId);

@@ -28,7 +28,7 @@ public class GroupApiController {
     public CreateGroupResponse createGroup(@RequestBody CreateGroupRequest request) {
         Group group = new Group(request.getGroupName()); // 요청이 들어온 이름으로 그룹 생성
         groupService.saveGroup(group); // DB에 그룹 저장
-        Member member = memberService.findMember(request.getUserId()); // 그룹에 들어갈 멤버 찾아오기
+        Member member = memberService.findMemberByName(request.getUserId()); // 그룹에 들어갈 멤버 찾아오기
         Long groupId = memberService.joinGroup(member, group); // 그룹 가입
         return new CreateGroupResponse(groupId);
     }
@@ -67,7 +67,7 @@ public class GroupApiController {
 
     @Data
     static class CreateGroupRequest {
-        private Long userId;
+        private String userId;
         private String groupName;
     }
 
