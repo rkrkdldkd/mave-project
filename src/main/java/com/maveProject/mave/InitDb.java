@@ -45,7 +45,7 @@ public class InitDb {
             Member member = new Member("hello1");
             em.persist(member);
 
-            Group group = new Group("그루비룸", LocalDateTime.now(), IsFinish.NO, Flower.ZERO, 1);
+            Group group = new Group("그루비룸", LocalDateTime.now(), IsFinish.NO, Flower.ZERO, 1l);
             em.persist(group);
         }
 

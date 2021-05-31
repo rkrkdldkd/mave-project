@@ -34,11 +34,11 @@ public class GroupApiController {
     @PostMapping("/api/groups")
     public CreateGroupResponse createGroup(@RequestBody CreateGroupRequest request) {
         LocalDateTime questionTime = LocalDateTime.parse(request.getQuestionTime(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        Group group = new Group(request.getGroupName(),questionTime,IsFinish.NO,Flower.ZERO,1); // 요청이 들어온 이름으로 그룹 생성
+        Group group = new Group(request.getGroupName(),questionTime,IsFinish.NO,Flower.ZERO,1l); // 요청이 들어온 이름으로 그룹 생성
         groupService.saveGroup(group); // DB에 그룹 저장
         Member member = memberService.findMemberByName(request.getUserId()); // 그룹에 들어갈 멤버 찾아오기
         Long groupId = memberService.joinGroup(member, group); // 그룹 가입
-        return new CreateGroupResponse(groupId);
+        return new CreateGroupResponse(groupId,group.getDiaryDate());
     }
 
     /**
@@ -96,9 +96,11 @@ public class GroupApiController {
     static class CreateGroupResponse {
 
         private Long groupId;
+        private Long diaryDate;
 
-        public CreateGroupResponse(Long groupId) {
+        public CreateGroupResponse(Long groupId, Long diaryDate) {
             this.groupId = groupId;
+            this.diaryDate = diaryDate;
         }
     }
 
@@ -108,10 +110,10 @@ public class GroupApiController {
         private int flowerCount;
         private int flowerStatus;
         private String questionTime;
-        private int diaryDate;
+        private Long diaryDate;
 
 
-        public FindGroupResponse(String groupName, int flowerCount, int flowerStatus, String questionTime, int diaryDate) {
+        public FindGroupResponse(String groupName, int flowerCount, int flowerStatus, String questionTime, Long diaryDate) {
             this.groupName = groupName;
             this.flowerCount = flowerCount;
             this.flowerStatus = flowerStatus;

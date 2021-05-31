@@ -32,7 +32,7 @@ public class Group {
 
     private LocalDateTime questionTime;
 
-    private int diaryDate;
+    private Long diaryDate;
 
     @Enumerated(EnumType.STRING)
     private IsFinish status;
@@ -52,7 +52,7 @@ public class Group {
 
     //===== 생성 메서드 =====//
 
-    public Group(String groupName, LocalDateTime questionTime, IsFinish status, Flower flower, int diaryDate) {
+    public Group(String groupName, LocalDateTime questionTime, IsFinish status, Flower flower, Long diaryDate) {
         this.groupName = groupName;
         this.questionTime = questionTime;
         this.status = status;
@@ -72,7 +72,7 @@ public class Group {
                 this.questionTime.getMonth(),
                 this.questionTime.getDayOfMonth());
 
-        int between = (int) ChronoUnit.DAYS.between(startDate, LocalDate.now());
+        Long between =  ChronoUnit.DAYS.between(startDate, LocalDate.now());
         this.diaryDate = between + 1;
     }
 
