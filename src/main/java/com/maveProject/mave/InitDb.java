@@ -1,8 +1,6 @@
 package com.maveProject.mave;
 
-import com.maveProject.mave.domain.Group;
-import com.maveProject.mave.domain.Member;
-import com.maveProject.mave.domain.QuestionBank;
+import com.maveProject.mave.domain.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -10,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 /**
  * 임시로 DB에 시작 데이터 넣음
@@ -45,7 +45,7 @@ public class InitDb {
             Member member = new Member("hello1");
             em.persist(member);
 
-            Group group = new Group("그루비룸");
+            Group group = new Group("그루비룸", LocalDateTime.now(), IsFinish.NO, Flower.ZERO, 1);
             em.persist(group);
         }
 
