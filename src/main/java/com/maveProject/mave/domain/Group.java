@@ -1,10 +1,15 @@
 package com.maveProject.mave.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,10 +26,19 @@ public class Group {
 
     private String groupName;
 
-    private int remainCount;
+    private int flowerCount;
+
+    private int remainAnswerCount;
+
+    private LocalDateTime questionTime;
+
+    private int diaryDate;
 
     @Enumerated(EnumType.STRING)
     private IsFinish status;
+
+    @Enumerated(EnumType.STRING)
+    private Flower flower;
 
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
     private List<Member> members = new ArrayList<>();
@@ -38,8 +52,12 @@ public class Group {
 
     //===== 생성 메서드 =====//
 
-    public Group(String groupName) {
+    public Group(String groupName, LocalDateTime questionTime, IsFinish status, Flower flower, int diaryDate) {
         this.groupName = groupName;
+        this.questionTime = questionTime;
+        this.status = status;
+        this.flower = flower;
+        this.diaryDate = diaryDate;
     }
 
 
@@ -47,33 +65,63 @@ public class Group {
 
     //====== 비즈니스 메서드 =====//
 
-    public void setRemainCountCount(int count) {
-        this.remainCount = count;
-    }
 
-    public void setStatus(IsFinish status) {
-        this.status = status;
-    }
+    public void changeDiaryDate(){
+        LocalDate startDate = LocalDate.of(
+                this.questionTime.getYear(),
+                this.questionTime.getMonth(),
+                this.questionTime.getDayOfMonth());
 
+        int between = (int) ChronoUnit.DAYS.between(startDate, LocalDate.now());
+        this.diaryDate = between + 1;
+    }
 
     public void minusCount() {
-        if (this.getRemainCount() == 0) {
+        if (this.getRemainAnswerCount() == 0) {
             return;
         }
-        this.remainCount--;
+        this.remainAnswerCount--;
     }
 
     public int setCount() {
-        remainCount = this.getMembers().size();
-        return remainCount;
+        remainAnswerCount = this.getMembers().size();
+        return remainAnswerCount;
     }
 
     public Boolean compareState() {
-        if (remainCount == 0) {
+        if (remainAnswerCount == 0) {
             status = IsFinish.YES;
+            plusFlowerCount();
             return true;
         }
         return false;
+    }
+
+    public void plusFlowerCount() {
+        flowerCount++;
+    }
+
+    public void flowerStatusCheck() {
+        switch (flowerCount) {
+            case 1:
+                flower = flower.ONE;
+                break;
+            case 2:
+                flower = flower.TWO;
+                break;
+            case 3:
+                flower = flower.THREE;
+                break;
+            case 4:
+                flower = flower.FOUR;
+                break;
+            case 5:
+                flower = flower.FIVE;
+                break;
+            default:
+                flower = flower.ZERO;
+                break;
+        }
     }
 
 

@@ -29,7 +29,7 @@ public class AnswerApiController {
     @PostMapping("/api/answer/{questionNumber}")
     public RegistAnswerResponse registAnswer(@PathVariable(value = "questionNumber") Long questionNumber,
                                              @RequestBody RegistAnswerRequest request){
-        Member member = memberService.findMember(request.getUserId());
+        Member member = memberService.findMemberByName(request.getUserId());
         Group group = groupService.findGroup(request.getGroupId());
         Question question = questionService.findQuestion(group,questionNumber);
         Answer answer = new Answer(request.getAnswer());
@@ -44,7 +44,7 @@ public class AnswerApiController {
      * 모두 답변을 했을 때, 해당 질문에 대한 답변을 List에 담아 반환합니다.
      */
     @PostMapping("/api/allAnswer/{questionNumber}")
-    public List<AllAnswerResponse> allAnswer(@PathVariable(value = "questionNumber") Long questionNumber,
+    public  List<AllAnswerResponse>  allAnswer(@PathVariable(value = "questionNumber") Long questionNumber,
                                        @RequestBody AllAnswerRequest request){
         List<AllAnswerResponse> result = answerService.findAllAnswer(request.getGroupId(), questionNumber);
 
@@ -60,7 +60,7 @@ public class AnswerApiController {
     @Data
     static class RegistAnswerRequest{
 
-        private Long userId;
+        private String userId;
         private Long groupId;
         private String answer;
 

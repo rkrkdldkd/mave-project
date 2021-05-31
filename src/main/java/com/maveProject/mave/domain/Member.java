@@ -36,8 +36,8 @@ public class Member {
 
     //======= 생성자 ========//
 
-    public Member(String userName) {
-        this.userName = userName;
+    public Member(String userId) {
+        this.userId = userId;
     }
 
     public Member(String userId, String password, String userName) {
