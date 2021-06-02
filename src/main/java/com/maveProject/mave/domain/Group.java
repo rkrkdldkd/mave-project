@@ -65,8 +65,14 @@ public class Group {
 
     //====== 비즈니스 메서드 =====//
 
+    public Boolean isDateChanged(Long prevDate, Long nextDate){
+        if(prevDate < nextDate){
+            return true;
+        }
+        return false;
+    }
 
-    public void changeDiaryDate(){
+    public Long changeDiaryDate(){
         LocalDate startDate = LocalDate.of(
                 this.questionTime.getYear(),
                 this.questionTime.getMonth(),
@@ -74,6 +80,7 @@ public class Group {
 
         Long between =  ChronoUnit.DAYS.between(startDate, LocalDate.now());
         this.diaryDate = between + 1;
+        return diaryDate;
     }
 
     public void minusCount() {

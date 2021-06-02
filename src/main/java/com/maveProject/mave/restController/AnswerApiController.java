@@ -85,10 +85,10 @@ public class AnswerApiController {
 
     @Data
     public static class AllAnswerResponse{
-        private Long userId;
+        private String userId;
         private String answerContent;
 
-        public AllAnswerResponse(Long userId, String answerContent) {
+        public AllAnswerResponse(String userId, String answerContent) {
             this.userId = userId;
             this.answerContent = answerContent;
         }

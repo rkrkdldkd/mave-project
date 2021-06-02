@@ -36,11 +36,31 @@ public class InitDb {
         private final EntityManager em;
 
         public void dbInit(){
-            QuestionBank questionBank = new QuestionBank();
-            questionBank.setQuestionNumber(1l);
-            questionBank.setContent("첫 번째 질문입니다.");
+            QuestionBank questionBank1 = new QuestionBank();
+            questionBank1.setQuestionNumber(1l);
+            questionBank1.setContent("첫 번째 질문입니다.");
 
-            em.persist(questionBank);
+            QuestionBank questionBank2 = new QuestionBank();
+            questionBank2.setQuestionNumber(2l);
+            questionBank2.setContent("두 번째 질문입니다.");
+
+            QuestionBank questionBank3 = new QuestionBank();
+            questionBank3.setQuestionNumber(3l);
+            questionBank3.setContent("세 번째 질문입니다.");
+
+            QuestionBank questionBank4 = new QuestionBank();
+            questionBank4.setQuestionNumber(4l);
+            questionBank4.setContent("네 번째 질문입니다.");
+
+            QuestionBank questionBank5 = new QuestionBank();
+            questionBank5.setQuestionNumber(5l);
+            questionBank5.setContent("다섯 번째 질문입니다.");
+
+            em.persist(questionBank1);
+            em.persist(questionBank2);
+            em.persist(questionBank3);
+            em.persist(questionBank4);
+            em.persist(questionBank5);
 
             Member member = new Member("hello1");
             em.persist(member);

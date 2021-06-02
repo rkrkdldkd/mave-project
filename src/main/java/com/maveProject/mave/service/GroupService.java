@@ -39,4 +39,12 @@ public class GroupService {
         return group.compareState();
     }
 
+    @Transactional
+    public Boolean compareDate(Group group){
+        Long prevDate = group.getDiaryDate();
+        Long changedDate = group.changeDiaryDate();
+//        Long changedDate = 3l; 테스트용!
+        return group.isDateChanged(prevDate, changedDate);
+    }
+
 }

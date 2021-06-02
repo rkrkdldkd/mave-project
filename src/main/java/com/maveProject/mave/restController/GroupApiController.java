@@ -60,10 +60,10 @@ public class GroupApiController {
     public FindGroupResponse findGroup(@RequestBody JoinGroupRequest request) {
         Member member = memberService.findMemberByName(request.getUserId());
         Group group = groupService.findGroup(member.getGroup().getId());
-        group.changeDiaryDate();
+        Boolean isDateChanged = groupService.compareDate(group);
         group.flowerStatusCheck();
         String format = group.getQuestionTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        return new FindGroupResponse(group.getGroupName(),group.getFlowerCount(),group.getFlower().flowerStatus(),format,group.getDiaryDate());
+        return new FindGroupResponse(group.getId(),group.getGroupName(),group.getFlowerCount(),group.getFlower().flowerStatus(),format,group.getDiaryDate(),isDateChanged);
     }
 
     //====== DTO ======//
@@ -106,19 +106,23 @@ public class GroupApiController {
 
     @Data
     static class FindGroupResponse{
+        private Long groupId;
         private String groupName;
         private int flowerCount;
         private int flowerStatus;
         private String questionTime;
         private Long diaryDate;
+        private Boolean isDateChanged;
 
 
-        public FindGroupResponse(String groupName, int flowerCount, int flowerStatus, String questionTime, Long diaryDate) {
+        public FindGroupResponse(Long groupId, String groupName, int flowerCount, int flowerStatus, String questionTime, Long diaryDate, Boolean isDateChanged) {
+            this.groupId = groupId;
             this.groupName = groupName;
             this.flowerCount = flowerCount;
             this.flowerStatus = flowerStatus;
             this.questionTime = questionTime;
             this.diaryDate = diaryDate;
+            this.isDateChanged = isDateChanged;
 
         }
     }

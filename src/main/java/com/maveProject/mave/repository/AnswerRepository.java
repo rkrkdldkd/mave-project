@@ -47,7 +47,7 @@ public class AnswerRepository {
 
     public List<AllAnswerResponse> findAllAnswerQuery(Long groupId, Long questionNumber){
        return queryFactory.select(Projections.constructor(AllAnswerResponse.class,
-               answer.member.id,
+               answer.member.userId,
                answer.answerContent))
                .from(answer)
                .join(answer.group,group)
