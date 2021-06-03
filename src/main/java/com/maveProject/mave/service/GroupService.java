@@ -30,6 +30,11 @@ public class GroupService {
     }
 
     @Transactional
+    public void plusCompleteDate(Group group){
+        group.plusCompleteDate();
+    }
+
+    @Transactional
     public void changeIsFinish(Group group){
         group.changeIsFinish();
     }

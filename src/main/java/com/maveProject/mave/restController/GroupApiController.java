@@ -63,7 +63,7 @@ public class GroupApiController {
         Boolean isDateChanged = groupService.compareDate(group);
         group.flowerStatusCheck();
         String format = group.getQuestionTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        return new FindGroupResponse(group.getId(),group.getGroupName(),group.getFlowerCount(),group.getFlower().flowerStatus(),format,group.getDiaryDate(),isDateChanged);
+        return new FindGroupResponse(group.getId(),group.getGroupName(),group.getFlowerCount(),group.getFlower().flowerStatus(),format,group.getDiaryDate(),group.getCompleteDate(),isDateChanged);
     }
 
     //====== DTO ======//
@@ -112,16 +112,18 @@ public class GroupApiController {
         private int flowerStatus;
         private String questionTime;
         private Long diaryDate;
+        private Long completeDate;
         private Boolean isDateChanged;
 
 
-        public FindGroupResponse(Long groupId, String groupName, int flowerCount, int flowerStatus, String questionTime, Long diaryDate, Boolean isDateChanged) {
+        public FindGroupResponse(Long groupId, String groupName, int flowerCount, int flowerStatus, String questionTime, Long diaryDate,Long completeDate, Boolean isDateChanged) {
             this.groupId = groupId;
             this.groupName = groupName;
             this.flowerCount = flowerCount;
             this.flowerStatus = flowerStatus;
             this.questionTime = questionTime;
             this.diaryDate = diaryDate;
+            this.completeDate = completeDate;
             this.isDateChanged = isDateChanged;
 
         }

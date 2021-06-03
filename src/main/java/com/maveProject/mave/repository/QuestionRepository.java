@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.Optional;
 
 import static com.maveProject.mave.domain.QGroup.group;
 import static com.maveProject.mave.domain.QQuestion.question;
@@ -43,12 +44,12 @@ public class QuestionRepository {
                 .getResultList();
     }
 
-//    public List<Question> findByNumberForGroup(Long groupId, Long questionNumber){
-//        return em.createQuery("select q from Question q join q.group g " +
+//    public Optional<List<Question>> findByNumberForGroup(Long groupId, Long questionNumber){
+//        return Optional.ofNullable(em.createQuery("select q from Question q join q.group g " +
 //                "where q.questionNumber = :questionNumber and g.id = :groupId",Question.class)
 //                .setParameter("questionNumber",questionNumber)
 //                .setParameter("groupId",groupId)
-//                .getResultList();
+//                .getResultList());
 //    }
 
     public List<Question> findByNumberForGroupQuery(Long groupId, Long questionNumber){
