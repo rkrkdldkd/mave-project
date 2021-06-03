@@ -24,23 +24,28 @@ public class QuestionApiController {
      * 오늘의 질문을 보내줍니다.
      */
     @PostMapping("/api/question/{questionNumber}")
-    public GiveQuestionResponse giveQuestion(@PathVariable(value = "questionNumber") Long questionNumber,
-                                             @RequestBody GiveQuestionRequest request){
+    public GiveQuestionResponse giveQuestion(
+            @PathVariable(value = "questionNumber")
+                    Long questionNumber,
+            @RequestBody
+                    GiveQuestionRequest request) {
         QuestionBank question = questionBankService.findQuestion(questionNumber);
         Group group = groupService.findGroup(request.groupId);
         Question todayQuestion = new Question(group, question.getContent(), question.getQuestionNumber());
         questionService.createQuestion(todayQuestion);
+        groupService.setCompleteDate(group,questionNumber);
         groupService.setCount(group);
+        groupService.changeIsFinish(group);
         return new GiveQuestionResponse(question.getContent());
     }
 
+
     /**
-     *
      * 지난 질문들을 List에 담아 반환해줍니다.
      */
     @PostMapping("/api/allQuestion/{questionNumber}")
     public List<GiveAllQuestionResponse> giveAllQuestion(@PathVariable(value = "questionNumber") Long questionNumber,
-                                                         @RequestBody GiveAllQuestionRequest request){
+                                                         @RequestBody GiveAllQuestionRequest request) {
         Group group = groupService.findGroup(request.groupId);
         List<GiveAllQuestionResponse> result = questionService.findAllQuestion(group, questionNumber);
         return result;

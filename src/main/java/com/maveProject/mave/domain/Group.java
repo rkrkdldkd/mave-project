@@ -34,6 +34,8 @@ public class Group {
 
     private Long diaryDate;
 
+    private Long completeDate;
+
     @Enumerated(EnumType.STRING)
     private IsFinish status;
 
@@ -52,12 +54,13 @@ public class Group {
 
     //===== 생성 메서드 =====//
 
-    public Group(String groupName, LocalDateTime questionTime, IsFinish status, Flower flower, Long diaryDate) {
+    public Group(String groupName, LocalDateTime questionTime, IsFinish status, Flower flower, Long diaryDate, Long completeDate) {
         this.groupName = groupName;
         this.questionTime = questionTime;
         this.status = status;
         this.flower = flower;
         this.diaryDate = diaryDate;
+        this.completeDate = completeDate;
     }
 
 
@@ -72,12 +75,15 @@ public class Group {
         return false;
     }
 
+    public void setCompleteDate(Long completeDate){
+        this.completeDate = completeDate;
+    }
+
     public Long changeDiaryDate(){
         LocalDate startDate = LocalDate.of(
                 this.questionTime.getYear(),
                 this.questionTime.getMonth(),
                 this.questionTime.getDayOfMonth());
-
         Long between =  ChronoUnit.DAYS.between(startDate, LocalDate.now());
         this.diaryDate = between + 1;
         return diaryDate;
@@ -93,6 +99,10 @@ public class Group {
     public int setCount() {
         remainAnswerCount = this.getMembers().size();
         return remainAnswerCount;
+    }
+
+    public void changeIsFinish() {
+        status = IsFinish.NO;
     }
 
     public Boolean compareState() {
@@ -128,6 +138,10 @@ public class Group {
             default:
                 flower = flower.ZERO;
                 break;
+        }
+
+        if(flowerCount > 5){
+            flower = flower.FIVE;
         }
     }
 
