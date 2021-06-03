@@ -77,7 +77,6 @@ public class Group {
                 this.questionTime.getYear(),
                 this.questionTime.getMonth(),
                 this.questionTime.getDayOfMonth());
-
         Long between =  ChronoUnit.DAYS.between(startDate, LocalDate.now());
         this.diaryDate = between + 1;
         return diaryDate;
@@ -93,6 +92,10 @@ public class Group {
     public int setCount() {
         remainAnswerCount = this.getMembers().size();
         return remainAnswerCount;
+    }
+
+    public void changeIsFinish() {
+        status = IsFinish.NO;
     }
 
     public Boolean compareState() {

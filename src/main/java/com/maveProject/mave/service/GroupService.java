@@ -30,6 +30,11 @@ public class GroupService {
     }
 
     @Transactional
+    public void changeIsFinish(Group group){
+        group.changeIsFinish();
+    }
+
+    @Transactional
     public void minusCount(Group group){
         group.minusCount();
     }
