@@ -38,23 +38,23 @@ public class InitDb {
         public void dbInit(){
             QuestionBank questionBank1 = new QuestionBank();
             questionBank1.setQuestionNumber(1l);
-            questionBank1.setContent("첫 번째 질문입니다.");
+            questionBank1.setContent("1. 자신의 좋은 추억 장소는? ");
 
             QuestionBank questionBank2 = new QuestionBank();
             questionBank2.setQuestionNumber(2l);
-            questionBank2.setContent("두 번째 질문입니다.");
+            questionBank2.setContent("2. 가장 행복했던 기억은? ");
 
             QuestionBank questionBank3 = new QuestionBank();
             questionBank3.setQuestionNumber(3l);
-            questionBank3.setContent("세 번째 질문입니다.");
+            questionBank3.setContent("3. 아들의 꿈은? ");
 
             QuestionBank questionBank4 = new QuestionBank();
             questionBank4.setQuestionNumber(4l);
-            questionBank4.setContent("네 번째 질문입니다.");
+            questionBank4.setContent("4. 어머니의 어릴 적 꿈은? ");
 
             QuestionBank questionBank5 = new QuestionBank();
             questionBank5.setQuestionNumber(5l);
-            questionBank5.setContent("다섯 번째 질문입니다.");
+            questionBank5.setContent("5. 아버지가 좋아하는 음식은? ");
 
             em.persist(questionBank1);
             em.persist(questionBank2);
