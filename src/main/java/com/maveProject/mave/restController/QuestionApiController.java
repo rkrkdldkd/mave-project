@@ -31,6 +31,7 @@ public class QuestionApiController {
         Question todayQuestion = new Question(group, question.getContent(), question.getQuestionNumber());
         questionService.createQuestion(todayQuestion);
         groupService.setCount(group);
+        groupService.changeIsFinish(group);
         return new GiveQuestionResponse(question.getContent());
     }
 

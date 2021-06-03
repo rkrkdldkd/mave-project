@@ -62,11 +62,27 @@ public class InitDb {
             em.persist(questionBank4);
             em.persist(questionBank5);
 
-            Member member = new Member("hello1");
+            Member member = new Member("hello","48690","hello");
             em.persist(member);
 
             Group group = new Group("그루비룸", LocalDateTime.now(), IsFinish.NO, Flower.ZERO, 1l);
+            member.SetGroup(group);
             em.persist(group);
+
+            Question question = new Question(group,questionBank1.getContent(),questionBank1.getQuestionNumber());
+            group.setCount();
+            em.persist(question);
+
+            Answer answer = new Answer("미리 한 답변입니다!");
+
+
+            answer.registMember(member);
+            answer.addAnswer(question);
+            answer.registGroup(group);
+            group.minusCount();
+            group.compareState();
+            em.persist(answer);
+
         }
 
     }

@@ -68,6 +68,7 @@ public class QuestionRepository {
                 .from(question)
                 .join(question.group,group)
                 .where(question.questionNumber.loe(questionNumber))
+                .orderBy(question.questionNumber.desc())
                 .fetch();
 
     }
