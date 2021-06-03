@@ -32,6 +32,7 @@ public class GroupService {
     @Transactional
     public void setCompleteDate(Group group,Long questionNumber){
         group.setCompleteDate(questionNumber);
+
     }
 
     @Transactional

@@ -61,6 +61,7 @@ public class Group {
         this.flower = flower;
         this.diaryDate = diaryDate;
         this.completeDate = completeDate;
+
     }
 
 
