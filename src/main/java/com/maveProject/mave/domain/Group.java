@@ -34,6 +34,8 @@ public class Group {
 
     private Long diaryDate;
 
+    private Long completeDate;
+
     @Enumerated(EnumType.STRING)
     private IsFinish status;
 
@@ -58,6 +60,7 @@ public class Group {
         this.status = status;
         this.flower = flower;
         this.diaryDate = diaryDate;
+        this.completeDate = diaryDate;
     }
 
 
@@ -70,6 +73,10 @@ public class Group {
             return true;
         }
         return false;
+    }
+
+    public void plusCompleteDate(){
+        completeDate++;
     }
 
     public Long changeDiaryDate(){
@@ -131,6 +138,10 @@ public class Group {
             default:
                 flower = flower.ZERO;
                 break;
+        }
+
+        if(flowerCount > 5){
+            flower = flower.FIVE;
         }
     }
 
