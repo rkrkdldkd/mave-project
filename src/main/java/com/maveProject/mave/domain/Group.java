@@ -54,13 +54,14 @@ public class Group {
 
     //===== 생성 메서드 =====//
 
-    public Group(String groupName, LocalDateTime questionTime, IsFinish status, Flower flower, Long diaryDate) {
+    public Group(String groupName, LocalDateTime questionTime, IsFinish status, Flower flower, Long diaryDate, Long completeDate) {
         this.groupName = groupName;
         this.questionTime = questionTime;
         this.status = status;
         this.flower = flower;
         this.diaryDate = diaryDate;
-        this.completeDate = diaryDate;
+        this.completeDate = completeDate;
+
     }
 
 
@@ -75,8 +76,8 @@ public class Group {
         return false;
     }
 
-    public void plusCompleteDate(){
-        completeDate++;
+    public void setCompleteDate(Long completeDate){
+        this.completeDate = completeDate;
     }
 
     public Long changeDiaryDate(){

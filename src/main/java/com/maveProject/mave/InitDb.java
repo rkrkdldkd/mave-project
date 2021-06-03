@@ -65,7 +65,8 @@ public class InitDb {
             Member member = new Member("hello","48690","hello");
             em.persist(member);
 
-            Group group = new Group("그루비룸", LocalDateTime.now(), IsFinish.NO, Flower.ZERO, 1l);
+            Group group = new Group("그루비룸", LocalDateTime.now(), IsFinish.NO, Flower.ZERO, 1l,1l);
+
             member.SetGroup(group);
             em.persist(group);
 

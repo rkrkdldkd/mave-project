@@ -30,8 +30,9 @@ public class GroupService {
     }
 
     @Transactional
-    public void plusCompleteDate(Group group){
-        group.plusCompleteDate();
+    public void setCompleteDate(Group group,Long questionNumber){
+        group.setCompleteDate(questionNumber);
+
     }
 
     @Transactional

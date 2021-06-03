@@ -34,7 +34,7 @@ public class GroupApiController {
     @PostMapping("/api/groups")
     public CreateGroupResponse createGroup(@RequestBody CreateGroupRequest request) {
         LocalDateTime questionTime = LocalDateTime.parse(request.getQuestionTime(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        Group group = new Group(request.getGroupName(),questionTime,IsFinish.NO,Flower.ZERO,1l); // 요청이 들어온 이름으로 그룹 생성
+        Group group = new Group(request.getGroupName(),questionTime,IsFinish.NO,Flower.ZERO,1l,1l); // 요청이 들어온 이름으로 그룹 생성
         groupService.saveGroup(group); // DB에 그룹 저장
         Member member = memberService.findMemberByName(request.getUserId()); // 그룹에 들어갈 멤버 찾아오기
         Long groupId = memberService.joinGroup(member, group); // 그룹 가입
@@ -50,6 +50,8 @@ public class GroupApiController {
         Member member = memberService.findMemberByName(request.getUserId()); // 그룹에 들어갈 멤버 찾아오기
         Group group = groupService.findGroup(groupId); // 들어갈 그룹 찾아오기
         Long joinGroupId = memberService.joinGroup(member, group); // 그룹 가입
+        groupService.setCount(group);
+        groupService.changeIsFinish(group);
         return new JoinGroupResponse(joinGroupId);
     }
 

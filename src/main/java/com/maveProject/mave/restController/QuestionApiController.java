@@ -33,7 +33,7 @@ public class QuestionApiController {
         Group group = groupService.findGroup(request.groupId);
         Question todayQuestion = new Question(group, question.getContent(), question.getQuestionNumber());
         questionService.createQuestion(todayQuestion);
-        groupService.plusCompleteDate(group);
+        groupService.setCompleteDate(group,questionNumber);
         groupService.setCount(group);
         groupService.changeIsFinish(group);
         return new GiveQuestionResponse(question.getContent());

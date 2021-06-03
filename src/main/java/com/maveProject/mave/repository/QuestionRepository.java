@@ -1,5 +1,6 @@
 package com.maveProject.mave.repository;
 
+import com.maveProject.mave.domain.QGroup;
 import com.maveProject.mave.domain.QQuestion;
 import com.maveProject.mave.domain.Question;
 import com.maveProject.mave.restController.AnswerApiController;
@@ -68,7 +69,9 @@ public class QuestionRepository {
                 question.questionContent))
                 .from(question)
                 .join(question.group,group)
-                .where(question.questionNumber.loe(questionNumber))
+                .where(group.id.eq(groupId),
+                        question.questionNumber.loe(questionNumber))
+
                 .orderBy(question.questionNumber.desc())
                 .fetch();
 
